@@ -1,0 +1,89 @@
+---
+title: "Building an Ad Server That Scales"
+excerpt: "What does it take to build an ad server that handles billions of daily requests with sub-50ms latency? Here's what we've learned from a decade of experience."
+date: "2024-07-30"
+author: "Emily Watson"
+tags:
+  - "Ad Server"
+  - "Infrastructure"
+  - "Performance"
+readingTime: "10 min read"
+---
+
+## The Ad Server Challenge
+
+An ad server seems simple on the surface: match a request to an ad, serve it, track the impression. But at scale, it's one of the most **demanding distributed systems** in tech.
+
+Why? Because an ad server must:
+- Respond in under 50 milliseconds
+- Handle billions of daily requests with peak traffic exceeding 100,000 queries per second
+- Make complex decisions about targeting, frequency capping, and pacing
+- Ensure 99.99% uptime since downtime equals lost revenue
+- Track every impression, click, and conversion with precision
+
+If you're building an ad server from scratch, here's what you need to know.
+
+## Architecture Principles
+
+### Stateless Request Handling
+
+Your ad server must be **horizontally scalable**. Each server instance should be able to handle any request with no shared state between instances. Use external cache or database systems and enable auto-scaling based on traffic patterns.
+
+### Edge Distribution
+
+Latency is determined by geography. Deploy ad servers in multiple regions including North America, Europe, Asia-Pacific, and Latin America. Use GeoDNS to route requests to the nearest region.
+
+### Caching Strategy
+
+Ad servers live and die by caching. Cache campaign metadata with 5-10 minute TTL, user profiles with 1-5 minute TTL, and creative assets on CDN with 1-24 hour TTL. Use Redis clusters for distributed caching and implement proper cache invalidation strategies.
+
+## The Request Flow
+
+When a user loads a page with your ad, here's what happens:
+
+1. User's browser sends request to your ad server
+2. Load balancer routes to nearest region
+3. User profile lookup from cache (5-10ms)
+4. Campaign selection based on targeting, budget, pacing (10-20ms)
+5. Creative selection with A/B testing (2-5ms)
+6. Response generation and delivery (under 5ms)
+
+Total response time: 25-50 milliseconds
+
+### Optimization Techniques
+
+Run lookups in parallel rather than sequentially. Implement circuit breakers to fail fast when downstream services are slow. Use request coalescing to fetch profiles once for multiple concurrent requests.
+
+## Scaling Bottlenecks and Solutions
+
+### Database Writes
+
+Tracking billions of impressions means billions of database writes. Solution: batch writes to buffer 1000 events before writing, use columnar databases optimized for append-heavy workloads, and offload to message queues for async processing.
+
+### Cache Invalidation
+
+When campaigns update, invalidate cached targeting rules across all servers using Redis Pub/Sub to broadcast invalidation messages. Set short TTLs so stale data auto-expires, and implement versioned keys for atomic updates.
+
+### Hot User Profiles
+
+Handle traffic spikes by implementing request coalescing to fetch profiles once and share across requests, in-memory cache with sub-second TTL, and rate limiting to protect backend services.
+
+## Observability
+
+Monitor latency percentiles (target P95 under 50ms, P99 under 100ms), throughput by region and endpoint, error rates (target under 0.1%), cache hit rates (target over 95%), and database query times.
+
+Use tools like Prometheus or Datadog for metrics, ELK stack for logs, and Jaeger or Zipkin for distributed tracing.
+
+## Cost Optimization
+
+Keep costs down by using spot instances for 50-80% savings, optimizing database writes through batching, serving creative assets from CDN, and implementing auto-scaling with predictive algorithms.
+
+## The Tech Stack
+
+We recommend Go or Rust for application layer (low latency), Redis with clustering for caching, PostgreSQL for metadata and ClickHouse for analytics, Kafka for message queuing, Kubernetes for orchestration, and CloudFront or Fastly for CDN.
+
+## Conclusion
+
+Building an ad server that scales requires careful attention to horizontal scalability, heavy investment in caching, async processing for non-critical tasks, comprehensive monitoring, and thorough load testing before launch.
+
+We've built ad servers handling 10+ billion daily requests with sub-50ms P95 latency. It takes expertise and the right architecture, but the results are worth it.

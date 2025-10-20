@@ -1,0 +1,54 @@
+{
+  "name": "helix.co",
+  "version": "1.0.0",
+  "description": "AI-native AdTech engineering partner building DSPs, SSPs, DMPs, ad servers, and MetaDSP platforms",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://local_proxy@127.0.0.1:58532/git/vaibhavgupta28/Helix.co"
+  },
+  "keywords": [
+    "adtech",
+    "dsp",
+    "ssp",
+    "dmp",
+    "metadsp",
+    "programmatic advertising"
+  ],
+  "author": "Helix",
+  "license": "MIT",
+  "dependencies": {
+    "@mdx-js/loader": "^3.1.1",
+    "@mdx-js/react": "^3.1.1",
+    "@next/mdx": "^15.5.6",
+    "@types/mdx": "^2.0.13",
+    "@types/node": "^24.9.0",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "autoprefixer": "^10.4.21",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
+    "framer-motion": "^12.23.24",
+    "gray-matter": "^4.0.3",
+    "lucide-react": "^0.546.0",
+    "next": "^14.2.33",
+    "next-mdx-remote": "^5.0.0",
+    "postcss": "^8.5.6",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "reading-time": "^1.5.0",
+    "tailwind-merge": "^3.3.1",
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.18"
+  }
+}

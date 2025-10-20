@@ -1,0 +1,98 @@
+---
+title: "Custom SSP for Publisher Consortium"
+client: "Regional Publisher Consortium"
+industry: "Publishing / Media"
+challenge: "A consortium of 15 regional publishers needed a unified SSP to increase yield, reduce reliance on major exchanges, and maintain control over their inventory."
+results:
+  - "Increased eCPM by 22% through optimized auction logic"
+  - "Reduced revenue share to exchanges by 40%"
+  - "Achieved 500ms average bid response time"
+  - "Processed 5B+ monthly impressions with 99.95% uptime"
+tags:
+  - "SSP"
+  - "Publisher Tech"
+  - "Yield Optimization"
+date: "2024-06-10"
+---
+
+## The Problem
+
+A consortium of 15 mid-sized regional news publishers was losing revenue to intermediaries and lacked control over their programmatic inventory. Their challenges included:
+
+- **High exchange fees**: Paying 15-20% revenue share to major SSPs
+- **Opaque auction dynamics**: No visibility into how their inventory was being monetized
+- **Weak yield optimization**: Limited control over floor prices and bid filtering
+- **Slow innovation**: Dependent on SSP roadmaps for new features
+- **Data leakage**: First-party audience data shared with third-party platforms
+
+They wanted to build their own **Supply-Side Platform (SSP)** to take back control, but lacked the in-house expertise.
+
+## Our Solution
+
+We designed and built a **custom SSP** tailored to their consortium's needs, with a focus on yield optimization, transparency, and speed.
+
+### Core Capabilities
+
+**Real-Time Bidding (RTB) Engine**
+- **Header bidding support**: Server-to-server and client-side wrappers
+- **Unified auction**: Combined direct deals, PMPs, and open exchange demand
+- **Smart floor pricing**: ML-driven price floors based on historical performance
+- **Bid filtering**: Block low-quality demand and optimize for eCPM
+
+**Demand Integration**
+- **Pre-built adapters** for 12 major DSPs and ad exchanges
+- **Direct deals management**: UI for setting up and managing PMPs
+- **Demand quality scoring**: Automatic ranking of demand sources by fill rate and eCPM
+
+**Yield Optimization**
+- **A/B testing framework**: Test different auction configurations
+- **Dynamic timeouts**: Adjust bid timeouts based on demand partner latency
+- **Inventory segmentation**: Different auction rules for premium vs. remnant inventory
+
+**Analytics & Reporting**
+- **Real-time dashboards**: Monitor fill rates, eCPM, and latency
+- **Demand partner scorecards**: Compare performance across DSPs
+- **Revenue attribution**: Understand which demand sources drive the most value
+
+### Technology Stack
+
+- **Backend**: Go (for low-latency RTB), Node.js (for APIs)
+- **Database**: PostgreSQL, TimescaleDB (time-series data)
+- **Cache**: Redis (for bid caching and rate limiting)
+- **Message Queue**: RabbitMQ (for async event processing)
+- **Infrastructure**: AWS (EC2, ALB, RDS), Docker, Kubernetes
+- **Frontend**: Vue.js, Tailwind CSS
+
+## Architecture Highlights
+
+Our SSP architecture prioritized **speed** and **scalability**:
+
+- **Edge deployment**: Bid servers deployed in 5 AWS regions for low latency
+- **Horizontal scaling**: Auto-scaling based on request volume
+- **Efficient bid routing**: Request deduplication and intelligent demand partner selection
+- **Failover logic**: Automatic fallback to backup demand partners
+
+## Results
+
+Within the first 6 months, the publishers saw dramatic improvements:
+
+- **22% increase in eCPM** through optimized auction logic and better demand curation
+- **40% reduction in revenue share** by cutting out intermediary SSPs
+- **500ms average bid response time** across all demand partners
+- **5B+ monthly impressions** processed with 99.95% uptime
+- **Full transparency**: Publishers could see exactly which demand partners won and at what price
+
+## Economic Impact
+
+The consortium estimated **$2.4M in additional annual revenue** from the combination of higher eCPMs and reduced fees. The platform paid for itself in under 6 months.
+
+## Client Testimonial
+
+> "Helix gave us what we couldn't get from the big SSPs: control, transparency, and economics that actually work for publishers. This platform has been a game-changer for our consortium."
+> **— CEO, Regional Publisher Consortium**
+
+## Key Takeaways
+
+- **Ownership matters**: Publishers who control their tech stack can optimize for their own economics, not someone else's.
+- **Speed wins auctions**: Sub-500ms response times meant more bid opportunities and higher fill rates.
+- **Transparency builds trust**: Giving publishers full visibility into auction dynamics increased their confidence and engagement.
